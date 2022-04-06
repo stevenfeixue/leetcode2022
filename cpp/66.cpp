@@ -11,9 +11,8 @@ using namespace std;
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        vector<int> result(digits);
         int val = 1;
-        for (auto it=result.rbegin(); it != result.rend(); ++it) {
+        for (auto it=digits.rbegin(); it != digits.rend(); ++it) {
             *it = *it + val;
             if ((*it % 10)) {
                val = 0;
@@ -22,9 +21,9 @@ public:
             }
         }
         if (val) {
-            result.insert(result.begin(), 1);
+            digits.insert(digits.begin(), 1);
         }
-        return result;
+        return digits;
     }
 };
 
