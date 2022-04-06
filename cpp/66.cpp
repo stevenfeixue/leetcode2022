@@ -3,7 +3,6 @@
  */
 #include <iostream>
 #include <vector>
-#include <deque>
 #include <iterator>
 #include <algorithm>
 
@@ -12,10 +11,9 @@ using namespace std;
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        vector<int> result;
-        deque<int> tmp(digits.begin(), digits.end());
+        vector<int> result(digits);
         int val = 1;
-        for (auto it=tmp.rbegin(); it != tmp.rend(); ++it) {
+        for (auto it=result.rbegin(); it != result.rend(); ++it) {
             *it = *it + val;
             if ((*it % 10)) {
                val = 0;
@@ -24,10 +22,8 @@ public:
             }
         }
         if (val) {
-            tmp.push_front(1);
+            result.insert(result.begin(), 1);
         }
-        result.reserve(tmp.size() + val);
-        copy(tmp.cbegin(), tmp.cend(), back_inserter(result));
         return result;
     }
 };
