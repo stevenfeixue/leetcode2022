@@ -49,7 +49,9 @@ int main() {
     p->next = &b;
     p->next->next = &c;
     p->next->next->next = &d;
-    p = removeNthFromEnd(p, 4);
+
+    Solution sl;
+    p = sl.removeNthFromEnd(p, 4);
  
     while (p) {
         cout << p->val << endl;
