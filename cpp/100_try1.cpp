@@ -20,22 +20,14 @@ typedef struct TreeNode {
  
 class Solution {
 public:
-    bool isLeaf(TreeNode *p) {
-        return !p->left && !p->right;
-    }
 
     bool isSameTree(TreeNode* p, TreeNode* q) {
         if (!p && !q) return true;
-        if (p && q) {
-            if (isLeaf(p) && isLeaf(q)) {
-               return p->val == q->val;
-            } else if (!isLeaf(p) && !isLeaf(q)) {
-               return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
-            } else {
-               return false;
-            }
+        if (p && q && p->val == q->val) {
+            return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+        } else {
+            return false;
         }
-        return false;
     }
 };
 
