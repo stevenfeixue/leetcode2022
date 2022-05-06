@@ -20,10 +20,10 @@ typedef struct TreeNode {
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        if (!root) return res;
-        res = inorderTraversal(root->left);
+        if (!root) return {};
+        inorderTraversal(root->left);
         res.push_back(root->val);
-        res = inorderTraversal(root->right);
+        inorderTraversal(root->right);
         return res;
     }
 private:
