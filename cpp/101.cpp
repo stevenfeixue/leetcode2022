@@ -17,12 +17,18 @@ typedef struct TreeNode {
 
 class Solution {
 public:
-    void travers(TreeNode *root) {
+    bool travers(TreeNode *root) {
         if (root) {
+            if (!root->left && root->right) {
+                root->left = new TreeNode(999);
+            } else if (root->left && !root->right) {
+                root->right = new TreeNode(999);
+            }
             travers(root->left);
             inorder.push_back(root->val);
             travers(root->right);
         }
+        return true;
     }
 
     bool isSymmetric(TreeNode* root) {
@@ -43,14 +49,14 @@ private:
 int main() {
     Solution sl;
 
-    TreeNode a(1), b(2), c(2), d(3), e(4), f(4), g(3);
+    TreeNode a(1), b(2), c(2), d(2), f(2);
     TreeNode *p = &a;
     p->left = &b;
     p->right = &c;
     p->left->left = &d;
-    p->left->right = &e;
+    p->left->right = nullptr;
     p->right->left = &f;
-    p->right->right = &g;
+    p->right->right = nullptr;
 
     if (sl.isSymmetric(p)) cout << "true" << endl;
     else cout << "false" << endl;
