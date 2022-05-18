@@ -17,46 +17,44 @@ typedef struct TreeNode {
 
 class Solution {
 public:
-    bool travers(TreeNode *root) {
-        if (root) {
-            if (!root->left && root->right) {
-                root->left = new TreeNode(999);
-            } else if (root->left && !root->right) {
-                root->right = new TreeNode(999);
-            }
-            travers(root->left);
-            inorder.push_back(root->val);
-            travers(root->right);
-        }
-        return true;
+    bool travers(TreeNode *left, TreeNode *right) {
+        if (!left && right) return false;
+        if (left && !right) return false;
+        if (!left && !right) return true;
+        if (left && right && left->val == right->val) 
+            return travers(left->left, right->right) && travers(left->right, right->left);
+        else
+            return false;
     }
 
     bool isSymmetric(TreeNode* root) {
-
-        travers(root);
-        auto it = inorder.begin();
-        auto itt = inorder.rbegin();
-        while (it < itt.base()) {
-            if (*it++ != *itt++) return false;
-        }
-        return true;
+        TreeNode *l = root->left;
+        TreeNode *r = root->right;
+        return travers(l, r);
     }
-
-private:
-    vector<int> inorder;
 };
 
 int main() {
     Solution sl;
 
-    TreeNode a(1), b(2), c(2), d(2), f(2);
+    TreeNode a(5), b(4), c(1), d(1), e(4), f(2), g(2);
     TreeNode *p = &a;
     p->left = &b;
     p->right = &c;
-    p->left->left = &d;
-    p->left->right = nullptr;
-    p->right->left = &f;
-    p->right->right = nullptr;
+    p->left->right = &d;
+    p->left->right->left = &f;
+    p->right->right = &e;
+    p->right->right->left = &g;
+
+
+//    TreeNode a(1), b(3), c(2), d(3), e(4), f(4), g(3);
+//    TreeNode *p = &a;
+//    p->left = &b;
+//    p->right = &c;
+//    p->left->left = &d;
+//    p->left->right = &e;
+//    p->right->left = &f;
+//    p->right->right = &g;
 
     if (sl.isSymmetric(p)) cout << "true" << endl;
     else cout << "false" << endl;
