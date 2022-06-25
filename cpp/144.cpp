@@ -23,6 +23,15 @@ public:
         return res;
     }
 
+    vector<int> preorderTraversal(TreeNode *root) {
+        if (!root) return res;
+        TreeNode *p = root;
+        while (p) {
+            res.push_back(p->val);
+            
+        }
+    }
+
 private:
     vector<int> res;
 };
